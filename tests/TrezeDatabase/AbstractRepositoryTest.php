@@ -7,11 +7,26 @@ use TrezeVel\TrezeDatabase\Contracts\RepositoryInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Mockery as m;
 
+use TrezeVel\TrezeDatabase\Models\Category;
+
 /**
 * Model de teste da categoria
 */
 class AbstractRepositoryTest extends AbstractTestCase
 {
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->migrate();
+
+        Category::create([
+                    'name' => 'name category',
+                    'description' => 'description category'
+                ]);
+
+        echo Category::first()->name;
+    }
 
     public function testIfImplementsRepositoryInterface()
     {
