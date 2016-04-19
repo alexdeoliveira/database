@@ -19,11 +19,6 @@ class CategoryRepository extends AbstractRepository
         'name',
         'description'
     ];
-
-    public function all($columns = array('*'))
-    {
-
-    }
     
     public function create(array $data)
     {
