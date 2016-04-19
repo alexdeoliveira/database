@@ -38,4 +38,17 @@ class CategoryRepositoryTest extends AbstractTestCase
         $result = $reflectionProperty->getValue($repository);
         $this->assertInstanceOf(Category::class, $result);
     }
+
+
+    public function testCanMakeModelInConstructor()
+    {
+        $repository = new CategoryRepository();
+
+        $reflectionClass = new \ReflectionClass($repository);
+        $reflectionProperty = $reflectionClass->getProperty('model');
+        $reflectionProperty->setAccessible(true);
+
+        $result = $reflectionProperty->getValue($repository);
+        $this->assertInstanceOf(Category::class, $result);
+    }
 }

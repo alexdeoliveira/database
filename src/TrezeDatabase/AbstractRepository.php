@@ -6,6 +6,10 @@ use TrezeVel\TrezeDatabase\Contracts\RepositoryInterface;
 
 abstract class AbstractRepository implements RepositoryInterface
 {
+    public function __construct()
+    {
+        $this->makeModel();
+    }
 
     /**
      * @var \Illuminate\Database\Eloquent\Model
