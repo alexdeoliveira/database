@@ -19,12 +19,6 @@ class CategoryRepository extends AbstractRepository
         'name',
         'description'
     ];
-    
-    public function create(array $data)
-    {
-
-    }
-
     public function update(array $data, $id)
     {
 
