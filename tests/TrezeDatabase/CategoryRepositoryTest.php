@@ -12,43 +12,63 @@ use Mockery as m;
 */
 class CategoryRepositoryTest extends AbstractTestCase
 {
+
+    protected $repository;
+
     public function setUp()
     {
         parent::setUp();
         $this->migrate();
+        $this->repository = new CategoryRepository();
+        $this->createCategory();
     }
 
     public function testCanModel()
     {
-        $repository = new CategoryRepository();
-        $this->assertEquals(Category::class, $repository->model());
+        $this->assertEquals(Category::class, $this->repository->model());
     }
 
     public function testCatMakeModel()
     {
-        $repository = new CategoryRepository();
 
-        $result = $repository->makeModel();
+        $result = $this->repository->makeModel();
         $this->assertInstanceOf(Category::class, $result);
 
-        $reflectionClass = new \ReflectionClass($repository);
+        $reflectionClass = new \ReflectionClass($this->repository);
         $reflectionProperty = $reflectionClass->getProperty('model');
         $reflectionProperty->setAccessible(true);
 
-        $result = $reflectionProperty->getValue($repository);
+        $result = $reflectionProperty->getValue($this->repository);
         $this->assertInstanceOf(Category::class, $result);
     }
 
 
     public function testCanMakeModelInConstructor()
     {
-        $repository = new CategoryRepository();
 
-        $reflectionClass = new \ReflectionClass($repository);
+        $reflectionClass = new \ReflectionClass($this->repository);
         $reflectionProperty = $reflectionClass->getProperty('model');
         $reflectionProperty->setAccessible(true);
 
-        $result = $reflectionProperty->getValue($repository);
+        $result = $reflectionProperty->getValue($this->repository);
         $this->assertInstanceOf(Category::class, $result);
+    }
+
+    public function createCategory()
+    {
+        Category::create([
+            'name' => 'Name 1',
+            'description' => 'Description 1',
+        ]);
+
+        Category::create([
+            'name' => 'Name 2',
+            'description' => 'Description 2',
+        ]);
+
+        Category::create([
+            'name' => 'Name 3',
+            'description' => 'Description 3',
+        ]);
     }
 }
