@@ -20,11 +20,6 @@ class CategoryRepository extends AbstractRepository
         'description'
     ];
 
-    public function delete($id)
-    {
-
-    }
-
     public function find($id, $columns = array('*'))
     {
 
