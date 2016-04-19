@@ -19,10 +19,6 @@ class CategoryRepository extends AbstractRepository
         'name',
         'description'
     ];
-    public function update(array $data, $id)
-    {
-
-    }
 
     public function delete($id)
     {

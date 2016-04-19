@@ -4,7 +4,6 @@ namespace TrezeVel\TrezeDatabase\Tests;
 
 use TrezeVel\TrezeDatabase\Models\Category;
 use TrezeVel\TrezeDatabase\Repository\CategoryRepository;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Mockery as m;
 
 /**
@@ -79,6 +78,35 @@ class CategoryRepositoryTest extends AbstractTestCase
         $result = Category::find(4);
         $this->assertEquals('Name 4', $result->name);
         $this->assertEquals('Description 4', $result->description);
+
+    }
+
+    public function testCanUpdateCategory()
+    {
+        $result = $this->repository->update([
+            'name' => 'Name atualizado',
+            'description' => 'Description atualizado'
+        ], 1);
+
+        $this->assertInstanceOf(Category::class, $result);
+        $this->assertEquals('Name atualizado', $result->name);
+        $this->assertEquals('Description atualizado', $result->description);
+
+        $result = Category::find(1);
+        $this->assertEquals('Name atualizado', $result->name);
+        $this->assertEquals('Description atualizado', $result->description);
+
+    }
+
+    /**
+     * @expectedException \Illuminate\Database\Eloquent\ModelNotFoundException
+     */
+    public function testCanUpdateCategoryFail()
+    {
+        $this->repository->update([
+            'name' => 'Name atualizado',
+            'description' => 'Description atualizado'
+        ], 10);
 
     }
 
